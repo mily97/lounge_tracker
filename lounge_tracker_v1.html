@@ -1,102 +1,73 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2113.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <title>Lounge Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #map {
+            width: 100%;
+            height: 300px;
+        }
+    </style>
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <script src="leaflet/leaflet.js"></script>
+    <script src="leaflet/Control.Geocoder.js"></script>
+    <script src="jquery.min.js"></script>
 </head>
+
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Lounge Tracker&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#map {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 400px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="stylesheet" href="leaflet/leaflet.css" /&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Welcome to Lounge Tracker!&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="map"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Your Lounge Map&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Here's your interactive world map:&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Add a New Lounge&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;form id="addLoungeForm"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label for="loungeName"&gt;Lounge Name:&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="loungeName" name="loungeName" required&gt;&lt;br&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label for="location"&gt;Location:&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="location" name="location" required&gt;&lt;br&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="submit" value="Add Lounge"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/form&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://code.jquery.com/jquery-3.6.0.min.js"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="leaflet/leaflet.js"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Initialize and configure the Leaflet map</p>
-<p class="p1"><span class="Apple-converted-space">        </span>var map = L.map('map').setView([0, 0], 2); // Set the initial map center and zoom level</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>attribution: 'Map data &amp;copy; &lt;a href="https://www.openstreetmap.org/"&gt;OpenStreetMap&lt;/a&gt; contributors',</p>
-<p class="p1"><span class="Apple-converted-space">            </span>maxZoom: 18</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}).addTo(map);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Add markers for lounge locations</p>
-<p class="p1"><span class="Apple-converted-space">        </span>var lounges = [</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ name: 'Lounge 1', latlng: [40.7128, -74.0060] }, // Example location: New York City</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ name: 'Lounge 2', latlng: [51.5074, -0.1278] } // Example location: London</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Add more lounge locations as needed</p>
-<p class="p1"><span class="Apple-converted-space">        </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>lounges.forEach(function (lounge) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>L.marker(lounge.latlng).addTo(map).bindPopup(lounge.name);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Handle user interactions</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Example: When a marker is clicked, show an alert with the lounge name</p>
-<p class="p1"><span class="Apple-converted-space">        </span>map.on('click', function (event) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>var clickedMarker = event.layer;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>alert('You clicked on: ' + clickedMarker.getPopup().getContent());</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Example: Get the user's current location and center the map</p>
-<p class="p1"><span class="Apple-converted-space">        </span>map.locate({ setView: true, maxZoom: 14 });</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>map.on('locationfound', function (event) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>var userLocationMarker = L.marker(event.latlng).addTo(map);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>userLocationMarker.bindPopup('You are here!').openPopup();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>$(document).ready(function () {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Add lounge form submission</p>
-<p class="p1"><span class="Apple-converted-space">            </span>$('#addLoungeForm').submit(function (event) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>event.preventDefault();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>var loungeName = $('#loungeName').val();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>var location = $('#location').val();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>// Add code to update the map with the new lounge location</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>// Clear the form fields</p>
-<p class="p1"><span class="Apple-converted-space">                </span>$('#loungeName').val('');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>$('#location').val('');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/html&gt;</p>
+    <h1>Welcome to Lounge Tracker!</h1>
+    <div id="map"></div>
+    <h2>Your Lounge Map</h2>
+    <p>Here's your interactive world map:</p>
+
+    <h2>Add a New Lounge</h2>
+    <form>
+        <label for="loungeName">Lounge Name:</label>
+        <input type="text" id="loungeName" name="loungeName" required><br>
+
+        <input type="submit" value="Add Lounge">
+    </form>
+
+    <script>
+        var map = L.map('map').setView([0, 0], 2); // Set the initial map center and zoom level
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+            maxZoom: 18
+        }).addTo(map);
+
+        var geocoder = L.Control.Geocoder.nominatim();
+
+        function addLoungeMarker(loungeName, location) {
+            L.marker(location).addTo(map).bindPopup(loungeName).openPopup();
+        }
+
+        $(document).ready(function () {
+            // Add lounge form submission
+            $('form').submit(function (event) {
+                event.preventDefault();
+                var loungeName = $('#loungeName').val();
+
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        var latlng = [position.coords.latitude, position.coords.longitude];
+                        addLoungeMarker(loungeName, latlng);
+                    }, function (error) {
+                        console.log(error);
+                        alert('Error getting current location. Please enter the location manually.');
+                    });
+                } else {
+                    alert('Geolocation is not supported by your browser. Please enter the location manually.');
+                }
+
+                // Clear the form field
+                $('#loungeName').val('');
+            });
+        });
+    </script>
 </body>
+
 </html>
+
