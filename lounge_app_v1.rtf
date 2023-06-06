@@ -1,0 +1,94 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html>\
+\
+<head>\
+    <title>Lounge Tracker</title>\
+    <style>\
+        #map \{\
+            width: 100%;\
+            height: 400px;\
+        \}\
+    </style>\
+    <link rel="stylesheet" href="leaflet/leaflet.css" />\
+</head>\
+\
+<body>\
+    <h1>Welcome to Lounge Tracker!</h1>\
+    <div id="map"></div>\
+    <h2>Your Lounge Map</h2>\
+    <p>Here's your interactive world map:</p>\
+\
+    <h2>Add a New Lounge</h2>\
+    <form id="addLoungeForm">\
+        <label for="loungeName">Lounge Name:</label>\
+        <input type="text" id="loungeName" name="loungeName" required><br>\
+\
+        <label for="location">Location:</label>\
+        <input type="text" id="location" name="location" required><br>\
+\
+        <input type="submit" value="Add Lounge">\
+    </form>\
+\
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>\
+    <script src="leaflet/leaflet.js"></script>\
+    <script>\
+        // Initialize and configure the Leaflet map\
+        var map = L.map('map').setView([0, 0], 2); // Set the initial map center and zoom level\
+\
+        L.tileLayer('https://\{s\}.tile.openstreetmap.org/\{z\}/\{x\}/\{y\}.png', \{\
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',\
+            maxZoom: 18\
+        \}).addTo(map);\
+\
+        // Add markers for lounge locations\
+        var lounges = [\
+            \{ name: 'Lounge 1', latlng: [40.7128, -74.0060] \}, // Example location: New York City\
+            \{ name: 'Lounge 2', latlng: [51.5074, -0.1278] \} // Example location: London\
+            // Add more lounge locations as needed\
+        ];\
+\
+        lounges.forEach(function (lounge) \{\
+            L.marker(lounge.latlng).addTo(map).bindPopup(lounge.name);\
+        \});\
+\
+        // Handle user interactions\
+        // Example: When a marker is clicked, show an alert with the lounge name\
+        map.on('click', function (event) \{\
+            var clickedMarker = event.layer;\
+            alert('You clicked on: ' + clickedMarker.getPopup().getContent());\
+        \});\
+\
+        // Example: Get the user's current location and center the map\
+        map.locate(\{ setView: true, maxZoom: 14 \});\
+\
+        map.on('locationfound', function (event) \{\
+            var userLocationMarker = L.marker(event.latlng).addTo(map);\
+            userLocationMarker.bindPopup('You are here!').openPopup();\
+        \});\
+\
+        $(document).ready(function () \{\
+            // Add lounge form submission\
+            $('#addLoungeForm').submit(function (event) \{\
+                event.preventDefault();\
+                var loungeName = $('#loungeName').val();\
+                var location = $('#location').val();\
+\
+                // Add code to update the map with the new lounge location\
+\
+                // Clear the form fields\
+                $('#loungeName').val('');\
+                $('#location').val('');\
+            \});\
+        \});\
+    </script>\
+</body>\
+\
+</html>\
+}
